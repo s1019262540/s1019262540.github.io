@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人作品集</title>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --card-bg: #ffffff;
+            --text: #2c2c2c;
+            --text-secondary: #6b6b6b;
+            --text-muted: #999797;
+            --border: #e8e5e0;
+            --border-hover: #d0ccc5;
+            --accent: #6b7b8a;
+            --accent-hover: #556570;
+            --tag-bg: #f0ede8;
+            --tag-bg-hover: #e3dfd8;
+            --placeholder-bg: #f2efe9;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --radius: 6px;
+            --radius-sm: 4px;
+            --max-width: 1080px;
+            --font-sans: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", "Hiragino Sans GB", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --transition: 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            min-height: 100vh;
+        }
+
+        /* ========== 容器 ========== */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== 导航栏 ========== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: border-color var(--transition);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .logo {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .logo-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            margin-left: 4px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            transition: color var(--transition);
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background-color: var(--accent);
+            transition: width var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--text);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ========== 各部分通用 ========== */
+        .section {
+            padding: 72px 0;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 28px;
+            letter-spacing: 0.02em;
+            line-height: 1.3;
+        }
+        .section-divider {
+            width: 40px;
+            height: 2px;
+            background-color: var(--border);
+            margin-bottom: 36px;
+            border-radius: 1px;
+        }
+
+        /* ========== 关于区域 ========== */
+        .about-wrapper {
+            display: flex;
+            gap: 48px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .about-avatar {
+            flex-shrink: 0;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--placeholder-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            user-select: none;
+        }
+        .about-text {
+            flex: 1;
+            min-width: 260px;
+        }
+        .about-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.02em;
+        }
+        .about-role {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            letter-spacing: 0.03em;
+        }
+        .about-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 600px;
+        }
+        .about-desc p {
+            margin-bottom: 10px;
+        }
+        .about-desc p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========== 筛选标签 ========== */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 36px;
+        }
+        .filter-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 0.82rem;
+            letter-spacing: 0.03em;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background-color: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            user-select: none;
+            white-space: nowrap;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+        .filter-tag:hover {
+            border-color: var(--border-hover);
+            color: var(--text);
+            background-color: var(--tag-bg);
+        }
+        .filter-tag.active {
+            background-color: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* ========== 项目卡片网格 ========== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+        }
+        .project-placeholder {
+            height: 180px;
+            background-color: var(--placeholder-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            user-select: none;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            opacity: 0.6;
+        }
+        .project-placeholder-icon {
+            font-size: 2.4rem;
+            opacity: 0.35;
+        }
+        .project-body {
+            padding: 20px 22px 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+            color: var(--text);
+        }
+        .project-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 14px;
+            flex: 1;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .project-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            padding: 3px 10px;
+            border-radius: var(--radius-sm);
+            background-color: var(--tag-bg);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .project-links {
+            display: flex;
+            gap: 16px;
+            font-size: 0.84rem;
+        }
+        .project-links a {
+            text-decoration: none;
+            color: var(--accent);
+            transition: color var(--transition);
+            letter-spacing: 0.03em;
+            position: relative;
+            padding-bottom: 1px;
+        }
+        .project-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent);
+            opacity: 0.3;
+            transition: opacity var(--transition);
+        }
+        .project-links a:hover {
+            color: var(--accent-hover);
+        }
+        .project-links a:hover::after {
+            opacity: 0.7;
+        }
+        .project-links .link-disabled {
+            color: var(--text-muted);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .project-links .link-disabled::after {
+            display: none;
+        }
+
+        /* ========== 技能区域 ========== */
+        .skills-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            display: inline-block;
+            padding: 7px 18px;
+            font-size: 0.84rem;
+            letter-spacing: 0.03em;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background-color: transparent;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+            cursor: default;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .skill-tag:hover {
+            border-color: var(--border-hover);
+            background-color: var(--tag-bg);
+            color: var(--text);
+        }
+
+        /* ========== 联系区域 ========== */
+        .contact-info {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        .contact-info a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color var(--transition);
+            position: relative;
+            padding-bottom: 1px;
+        }
+        .contact-info a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent);
+            opacity: 0.3;
+            transition: opacity var(--transition);
+        }
+        .contact-info a:hover {
+            color: var(--accent-hover);
+        }
+        .contact-info a:hover::after {
+            opacity: 0.7;
+        }
+
+        /* ========== 页脚 ========== */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+        .footer .back-to-top {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color var(--transition);
+            cursor: pointer;
+        }
+        .footer .back-to-top:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ========== 空状态 ========== */
+        .empty-state {
+            text-align: center;
+            padding: 48px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* ========== 响应式 - 平板 ========== */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .section {
+                padding: 56px 0;
+            }
+            .about-wrapper {
+                gap: 32px;
+            }
+        }
+
+        /* ========== 响应式 - 手机 ========== */
+        @media (max-width: 640px) {
+            .header-inner {
+                height: 50px;
+                padding: 0 16px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .nav-links {
+                gap: 16px;
+            }
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+            .logo {
+                font-size: 1rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .section {
+                padding: 44px 0;
+            }
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            .about-wrapper {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+            }
+            .about-desc {
+                max-width: 100%;
+            }
+            .about-avatar {
+                width: 72px;
+                height: 72px;
+                font-size: 1.6rem;
+            }
+            .about-name {
+                font-size: 1.35rem;
+            }
+            .filter-bar {
+                gap: 8px;
+                margin-bottom: 24px;
+            }
+            .filter-tag {
+                padding: 5px 14px;
+                font-size: 0.76rem;
+            }
+            .project-placeholder {
+                height: 150px;
+            }
+            .project-body {
+                padding: 16px 18px 14px;
+            }
+            .skills-cloud {
+                gap: 8px;
+            }
+            .skill-tag {
+                padding: 6px 14px;
+                font-size: 0.78rem;
+            }
+            .section-divider {
+                margin-bottom: 24px;
+            }
+            .contact-info {
+                font-size: 0.88rem;
+            }
+        }
+
+        /* ========== 极小屏 ========== */
+        @media (max-width: 380px) {
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 0.74rem;
+            }
+            .logo {
+                font-size: 0.9rem;
+            }
+            .header-inner {
+                padding: 0 10px;
+            }
+            .container {
+                padding: 0 10px;
+            }
+        }
+
+        /* ========== 打印样式 ========== */
+        @media print {
+            .header {
+                position: static;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+            .filter-bar {
+                display: none;
+            }
+            .project-card {
+                break-inside: avoid;
+                box-shadow: none;
+            }
+            body {
+                background: #fff;
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- ==================== 导航栏 ==================== -->
+        <header class="header">
+            <div class="header-inner">
+                <a href="#" class="logo" @click.prevent="scrollToTop">作品集<span class="logo-dot"></span></a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#about" @click.prevent="scrollToSection('about')">关于</a></li>
+                        <li><a href="#projects" @click.prevent="scrollToSection('projects')">作品</a></li>
+                        <li><a href="#skills" @click.prevent="scrollToSection('skills')">技能</a></li>
+                        <li><a href="#contact" @click.prevent="scrollToSection('contact')">联系</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- ==================== 主体内容 ==================== -->
+        <main>
+            <!-- 关于 -->
+            <section id="about" class="section">
+                <div class="container">
+                    <span class="section-label">About</span>
+                    <h2 class="section-title">你好，我是{{ personalInfo.name }}</h2>
+                    <div class="section-divider"></div>
+                    <div class="about-wrapper">
+                        <div class="about-avatar" :title="personalInfo.name">
+                            {{ personalInfo.avatarInitial }}
+                        </div>
+                        <div class="about-text">
+                            <p class="about-role">{{ personalInfo.role }}</p>
+                            <div class="about-desc">
+                                <p>{{ personalInfo.bio1 }}</p>
+                                <p>{{ personalInfo.bio2 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 作品 -->
+            <section id="projects" class="section">
+                <div class="container">
+                    <span class="section-label">Projects</span>
+                    <h2 class="section-title">精选作品</h2>
+                    <div class="section-divider"></div>
+                    <!-- 筛选栏 -->
+                    <div class="filter-bar" v-if="allTags.length > 0">
+                        <button
+                            class="filter-tag"
+                            :class="{ active: selectedTag === null }"
+                            @click="selectedTag = null"
+                        >
+                            全部
+                        </button>
+                        <button
+                            v-for="tag in allTags"
+                            :key="tag"
+                            class="filter-tag"
+                            :class="{ active: selectedTag === tag }"
+                            @click="toggleTag(tag)"
+                        >
+                            {{ tag }}
+                        </button>
+                    </div>
+                    <!-- 项目列表 -->
+                    <div v-if="filteredProjects.length > 0" class="projects-grid">
+                        <article
+                            v-for="project in filteredProjects"
+                            :key="project.id"
+                            class="project-card"
+                        >
+                            <div class="project-placeholder">
+                                <span class="project-placeholder-icon">{{ project.icon }}</span>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">{{ project.title }}</h3>
+                                <p class="project-desc">{{ project.description }}</p>
+                                <div class="project-tags" v-if="project.tags.length > 0">
+                                    <span
+                                        v-for="tag in project.tags"
+                                        :key="tag"
+                                        class="project-tag"
+                                    >{{ tag }}</span>
+                                </div>
+                                <div class="project-links">
+                                    <a
+                                        v-if="project.demoUrl"
+                                        :href="project.demoUrl"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >演示链接</a>
+                                    <span v-else class="link-disabled">暂无演示</span>
+                                    <a
+                                        v-if="project.githubUrl"
+                                        :href="project.githubUrl"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >源代码</a>
+                                    <span v-else class="link-disabled">未开源</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- 空状态 -->
+                    <div v-else class="empty-state">
+                        该标签下暂无项目，请尝试其他筛选条件。
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技能 -->
+            <section id="skills" class="section">
+                <div class="container">
+                    <span class="section-label">Skills</span>
+                    <h2 class="section-title">技术能力</h2>
+                    <div class="section-divider"></div>
+                    <div class="skills-cloud">
+                        <span
+                            v-for="skill in skills"
+                            :key="skill"
+                            class="skill-tag"
+                        >{{ skill }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系 -->
+            <section id="contact" class="section">
+                <div class="container">
+                    <span class="section-label">Contact</span>
+                    <h2 class="section-title">联系方式</h2>
+                    <div class="section-divider"></div>
+                    <div class="contact-info">
+                        <p>📧 邮箱：<a :href="'mailto:' + personalInfo.email">{{ personalInfo.email }}</a></p>
+                        <p>💻 GitHub：<a :href="personalInfo.githubUrl" target="_blank" rel="noopener noreferrer">{{ personalInfo.githubHandle }}</a></p>
+                        <p>📍 位置：{{ personalInfo.location }}</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ==================== 页脚 ==================== -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; {{ currentYear }} {{ personalInfo.name }}. 保留所有权利。</p>
+                <a class="back-to-top" href="#" @click.prevent="scrollToTop">↑ 回到顶部</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js">
+    </script>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    // ---- 个人信息 ----
+                    personalInfo: {
+                        name: '张三',
+                        avatarInitial: '张',
+                        role: '前端开发工程师 / 开源爱好者',
+                        bio1: '热爱构建简洁、好用的 Web 应用。拥有 5 年前端开发经验，专注于 Vue 生态与用户体验设计。',
+                        bio2: '业余时间喜欢参与开源项目，撰写技术博客，探索设计与工程的交汇点。',
+                        email: 'zhangsan@example.com',
+                        githubUrl: 'https://github.com/zhangsan',
+                        githubHandle: '@zhangsan',
+                        location: '中国 · 上海',
+                    },
+
+                    // ---- 技能列表 ----
+                    skills: [
+                        'Vue 3',
+                        'React',
+                        'TypeScript',
+                        'JavaScript',
+                        'Node.js',
+                        'Tailwind CSS',
+                        'SCSS',
+                        'Webpack / Vite',
+                        'Git',
+                        'Docker',
+                        'Python',
+                        'Figma',
+                        'Storybook',
+                        'Jest',
+                    ],
+
+                    // ---- 项目数据 ----
+                    projects: [
+                        {
+                            id: 1,
+                            title: '轻量电商前台',
+                            description: '基于 Vue 3 + Pinia 构建的电商 SPA，支持商品浏览、购物车与订单管理，响应式适配移动端。',
+                            tags: ['Vue 3', 'TypeScript', 'Pinia'],
+                            icon: '🛒',
+                            demoUrl: 'https://demo.example.com/shop',
+                            githubUrl: 'https://github.com/zhangsan/shop-frontend',
+                        },
+                        {
+                            id: 2,
+                            title: '企业品牌官网',
+                            description: '使用 React + Next.js 开发的多页面企业官网，SSG 模式，Lighthouse 评分 95+。',
+                            tags: ['React', 'Next.js', 'Tailwind CSS'],
+                            icon: '🏢',
+                            demoUrl: 'https://demo.example.com/corp',
+                            githubUrl: 'https://github.com/zhangsan/corp-site',
+                        },
+                        {
+                            id: 3,
+                            title: '跨平台任务管理 App',
+                            description: '基于 Flutter 开发的任务管理移动应用，支持 iOS 与 Android，具备离线缓存与推送通知功能。',
+                            tags: ['Flutter', 'Dart', 'Firebase'],
+                            icon: '📱',
+                            demoUrl: null,
+                            githubUrl: 'https://github.com/zhangsan/task-app',
+                        },
+                        {
+                            id: 4,
+                            title: '实时数据看板',
+                            description: '企业内部数据可视化看板，集成 ECharts 图表，支持 WebSocket 实时数据推送与深色模式。',
+                            tags: ['Vue 3', 'ECharts', 'WebSocket'],
+                            icon: '📊',
+                            demoUrl: 'https://demo.example.com/dashboard',
+                            githubUrl: null,
+                        },
+                        {
+                            id: 5,
+                            title: '个人技术博客',
+                            description: '使用 Nuxt 3 搭建的静态博客，支持 Markdown 写作、标签分类与 RSS 订阅。',
+                            tags: ['Nuxt 3', 'Markdown', 'RSS'],
+                            icon: '📝',
+                            demoUrl: 'https://blog.example.com',
+                            githubUrl: 'https://github.com/zhangsan/blog',
+                        },
+                        {
+                            id: 6,
+                            title: 'UI 组件库',
+                            description: '面向中后台场景的 Vue 3 组件库，包含 30+ 组件，支持按需引入与主题定制。',
+                            tags: ['Vue 3', 'Storybook', 'Rollup'],
+                            icon: '🧩',
+                            demoUrl: 'https://demo.example.com/ui-kit',
+                            githubUrl: 'https://github.com/zhangsan/ui-kit',
+                        },
+                    ],
+
+                    // ---- 筛选状态 ----
+                    selectedTag: null,
+                };
+            },
+
+            computed: {
+                /** 当前年份 */
+                currentYear() {
+                    return new Date().getFullYear();
+                },
+
+                /** 从所有项目中收集去重标签 */
+                allTags() {
+                    const tagSet = new Set();
+                    this.projects.forEach((p) => {
+                        p.tags.forEach((t) => tagSet.add(t));
+                    });
+                    return Array.from(tagSet).sort();
+                },
+
+                /** 根据选中标签筛选项目 */
+                filteredProjects() {
+                    if (this.selectedTag === null) {
+                        return this.projects;
+                    }
+                    return this.projects.filter((p) =>
+                        p.tags.includes(this.selectedTag)
+                    );
+                },
+            },
+
+            methods: {
+                /** 切换筛选标签 */
+                toggleTag(tag) {
+                    if (this.selectedTag === tag) {
+                        this.selectedTag = null;
+                    } else {
+                        this.selectedTag = tag;
+                    }
+                },
+
+                /** 平滑滚动到指定区域 */
+                scrollToSection(sectionId) {
+                    const el = document.getElementById(sectionId);
+                    if (el) {
+                        const headerHeight =
+                            document.querySelector('.header')?.offsetHeight || 56;
+                        const top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                },
+
+                /** 回到顶部 */
+                scrollToTop() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+            },
+        }).mount('#app');
+    </script>
+</body>
+</html>
